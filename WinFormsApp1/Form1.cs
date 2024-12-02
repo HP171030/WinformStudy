@@ -5,7 +5,7 @@ namespace WinFormsApp1
 {
     public partial class Form1 : Form
     {
-        string sqlAdr = "Server=localhost;Database=market_db;Uid=root;password=0000;";
+
         public Form1()
         {
             InitializeComponent();
@@ -13,7 +13,7 @@ namespace WinFormsApp1
 
         private void Form1_Load( object sender, EventArgs e )
         {
-
+            
         }
 
         private void label1_Click( object sender, EventArgs e )
