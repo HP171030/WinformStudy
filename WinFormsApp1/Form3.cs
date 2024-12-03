@@ -13,7 +13,7 @@ namespace WinFormsApp1
 {
     public partial class Form3 : Form
     {
-        string sqlAdr = "Server=localhost;Port=3306;Database=market_db;Uid=root;password=0000;";
+        MySqlConnection conn;
         public Form3()
         {
             InitializeComponent();
@@ -24,8 +24,8 @@ namespace WinFormsApp1
         {
             try
             {
-                MySqlConnection conn = new MySqlConnection(sqlAdr);
-                conn.Open();
+                conn = DBConnectManager.GetConnection();
+
                 if ( conn.State == ConnectionState.Open )
                 {
                     isConnectLabel.Text = "CONNECT";  // 연결 성공 메시지 표시
@@ -55,7 +55,7 @@ namespace WinFormsApp1
                     isConnectLabel.Text = "DISCONNECT";
                 }
             }
-            catch(MySqlException ex )
+            catch ( MySqlException ex )
             {
                 MessageBox.Show(ex.Message);
                 isConnectLabel.Text = "Connect Error";
@@ -79,6 +79,93 @@ namespace WinFormsApp1
         private void isConnectLabel_Click( object sender, EventArgs e )
         {
 
+        }
+
+        private void label2_Click( object sender, EventArgs e )
+        {
+
+        }
+
+        private void Add_Click( object sender, EventArgs e )
+        {
+            Form4 form4 = new Form4();
+            form4.Show();
+        }
+
+        private void refresh_Click( object sender, EventArgs e )
+        {
+            RefreshItems();
+        }
+        void RefreshItems()
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand
+                    ("SELECT * FROM buy", conn);
+
+                DataTable dt = new DataTable();
+                MySqlDataAdapter sda = new MySqlDataAdapter();
+                sda.SelectCommand = cmd;
+                sda.Fill(dt);
+
+                BindingSource bsrc = new BindingSource();
+                bsrc.DataSource = dt;
+
+                dataGridView1.DataSource = bsrc;
+            }
+            catch ( Exception ex )
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void Delete_Click( object sender, EventArgs e )
+        {
+            try
+            {
+                if(dataGridView1.SelectedRows.Count > 0 )
+                {
+                    string memId2Del = dataGridView1.SelectedRows [0].Cells ["mem_id"].Value.ToString();
+                    string delQuery = "DELETE FROM buy WHERE mem_id = @mem_id";
+                    using(MySqlCommand cmd = new MySqlCommand(delQuery,conn))
+                    {
+                        cmd.Parameters.AddWithValue("@mem_id", memId2Del);
+                        if(cmd.ExecuteNonQuery() > 0 )
+                        {
+                            MessageBox.Show("삭제완료");
+                            RefreshItems();
+                        }
+                        else
+                        {
+                            MessageBox.Show("삭제 실패");
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("선택되지 않았습니다");
+                    return;
+                }
+            }
+            catch(Exception ex )
+            {
+                MessageBox.Show($"오류 : {ex}");
+            }
+        }
+    }
+
+    public class DBConnectManager
+    {
+        static MySqlConnection connection = null;
+        static string sqlAdr = "Server=localhost;Port=3306;Database=market_db;Uid=root;password=0000;";
+
+        public static MySqlConnection GetConnection()
+        {
+            if( connection == null )
+            {
+                connection = new MySqlConnection( sqlAdr );
+                connection.Open();
+            }
+            return connection;
         }
     }
 }

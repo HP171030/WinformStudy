@@ -31,9 +31,12 @@
             label1 = new Label();
             dataGridView1 = new DataGridView();
             label2 = new Label();
-            textBox1 = new TextBox();
-            button1 = new Button();
+            MemberInput = new TextBox();
+            Delete = new Button();
             isConnectLabel = new Label();
+            label3 = new Label();
+            Add = new Button();
+            refresh = new Button();
             ( ( System.ComponentModel.ISupportInitialize )dataGridView1 ).BeginInit();
             SuspendLayout();
             // 
@@ -64,28 +67,30 @@
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("맑은 고딕", 13F);
-            label2.Location = new Point(641, 63);
+            label2.Location = new Point(641, 43);
             label2.Name = "label2";
-            label2.Size = new Size(79, 30);
+            label2.Size = new Size(97, 30);
             label2.TabIndex = 2;
-            label2.Text = "Search";
+            label2.Text = "Member";
+            label2.Click +=  label2_Click ;
             // 
-            // textBox1
+            // MemberInput
             // 
-            textBox1.Location = new Point(641, 110);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(125, 27);
-            textBox1.TabIndex = 3;
+            MemberInput.Location = new Point(641, 86);
+            MemberInput.Name = "MemberInput";
+            MemberInput.Size = new Size(125, 27);
+            MemberInput.TabIndex = 3;
             // 
-            // button1
+            // Delete
             // 
-            button1.Font = new Font("맑은 고딕", 10.2F, FontStyle.Bold, GraphicsUnit.Point,   129);
-            button1.Location = new Point(641, 379);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 4;
-            button1.Text = "Confirm";
-            button1.UseVisualStyleBackColor = true;
+            Delete.Font = new Font("맑은 고딕", 10.2F, FontStyle.Bold, GraphicsUnit.Point,   129);
+            Delete.Location = new Point(660, 379);
+            Delete.Name = "Delete";
+            Delete.Size = new Size(94, 29);
+            Delete.TabIndex = 4;
+            Delete.Text = "Delete";
+            Delete.UseVisualStyleBackColor = true;
+            Delete.Click +=  Delete_Click ;
             // 
             // isConnectLabel
             // 
@@ -97,14 +102,49 @@
             isConnectLabel.Text = "ISCONNECT?";
             isConnectLabel.Click +=  isConnectLabel_Click ;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("맑은 고딕", 13F);
+            label3.Location = new Point(660, 187);
+            label3.Name = "label3";
+            label3.Size = new Size(0, 30);
+            label3.TabIndex = 6;
+            // 
+            // Add
+            // 
+            Add.Font = new Font("맑은 고딕", 10.2F, FontStyle.Bold, GraphicsUnit.Point,   129);
+            Add.Location = new Point(660, 344);
+            Add.Name = "Add";
+            Add.Size = new Size(94, 29);
+            Add.TabIndex = 7;
+            Add.Text = "Add";
+            Add.UseVisualStyleBackColor = true;
+            Add.Click +=  Add_Click ;
+            // 
+            // refresh
+            // 
+            refresh.Font = new Font("맑은 고딕", 10.2F, FontStyle.Bold, GraphicsUnit.Point,   129);
+            refresh.Location = new Point(660, 296);
+            refresh.Name = "refresh";
+            refresh.Size = new Size(94, 29);
+            refresh.TabIndex = 8;
+            refresh.Text = "Refresh";
+            refresh.UseVisualStyleBackColor = true;
+            refresh.Click +=  refresh_Click ;
+            // 
             // Form3
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(refresh);
+            Controls.Add(Add);
+            Controls.Add(label3);
             Controls.Add(isConnectLabel);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
+            Controls.Add(Delete);
+            Controls.Add(MemberInput);
             Controls.Add(label2);
             Controls.Add(dataGridView1);
             Controls.Add(label1);
@@ -120,8 +160,11 @@
         private Label label1;
         private DataGridView dataGridView1;
         private Label label2;
-        private TextBox textBox1;
-        private Button button1;
+        private TextBox MemberInput;
+        private Button Delete;
         private Label isConnectLabel;
+        private Label label3;
+        private Button Add;
+        private Button refresh;
     }
 }
