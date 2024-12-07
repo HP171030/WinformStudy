@@ -47,7 +47,7 @@ namespace WinFormsApp1
                     bsrc.DataSource = dt;
                     dataGridView1.DataSource = bsrc;  // DataGridView에 데이터 바인딩
 
-                    sda.Update(dt);  // 데이터가 변경되면 업데이트, 하지만 SELECT만 수행하므로 이 부분은 필요하지 않을 수 있음
+                    sda.Update(dt);  // 데이터가 변경되면 업데이트
 
                 }
                 else
@@ -122,14 +122,14 @@ namespace WinFormsApp1
         {
             try
             {
-                if(dataGridView1.SelectedRows.Count > 0 )
+                if ( dataGridView1.SelectedRows.Count > 0 )
                 {
                     string memId2Del = dataGridView1.SelectedRows [0].Cells ["mem_id"].Value.ToString();
                     string delQuery = "DELETE FROM buy WHERE mem_id = @mem_id";
-                    using(MySqlCommand cmd = new MySqlCommand(delQuery,conn))
+                    using ( MySqlCommand cmd = new MySqlCommand(delQuery, conn) )
                     {
                         cmd.Parameters.AddWithValue("@mem_id", memId2Del);
-                        if(cmd.ExecuteNonQuery() > 0 )
+                        if ( cmd.ExecuteNonQuery() > 0 )
                         {
                             MessageBox.Show("삭제완료");
                             RefreshItems();
@@ -146,10 +146,57 @@ namespace WinFormsApp1
                     return;
                 }
             }
-            catch(Exception ex )
+            catch ( Exception ex )
             {
                 MessageBox.Show($"오류 : {ex}");
             }
+        }
+
+        private void Export_Click( object sender, EventArgs e )
+        {
+            string path = string.Empty;
+            saveFileDialog1.InitialDirectory = Application.StartupPath; //프로그램 실행파일 위치
+            saveFileDialog1.FileName = "*.txt";
+            saveFileDialog1.Filter = "txt files(*.txt)|*txt|All files(*.*)|*.*";
+
+            MySqlCommand cmd = new MySqlCommand("SELECT  ", conn);
+
+
+
+            if ( saveFileDialog1.ShowDialog() == DialogResult.OK )
+            {
+                path = saveFileDialog1.FileName;
+                StreamWriter writer = new StreamWriter(path);
+                writer.WriteLine("test");
+                writer.Close();
+            }
+        }
+
+        private void Import_Click( object sender, EventArgs e )
+        {
+            string path = string.Empty;
+            openFileDialog1.InitialDirectory = Application.StartupPath; //프로그램 실행파일 위치
+            openFileDialog1.FileName = "*.txt";
+            openFileDialog1.Filter = "txt files(*.txt)|*txt|All files(*.*)|*.*";
+
+
+            StringBuilder sb = new StringBuilder();
+            if ( openFileDialog1.ShowDialog() == DialogResult.OK )
+            {
+                path = openFileDialog1.FileName;
+                StreamReader reader = new StreamReader(path);
+                while ( reader.EndOfStream == false )
+                {
+                    sb.Append(reader.ReadLine());
+                    sb.Append("\r\n");
+                }
+
+            }
+        }
+
+        private void portText_TextChanged( object sender, EventArgs e )
+        {
+
         }
     }
 

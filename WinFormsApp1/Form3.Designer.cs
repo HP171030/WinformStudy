@@ -37,6 +37,11 @@
             label3 = new Label();
             Add = new Button();
             refresh = new Button();
+            Import = new Button();
+            Export = new Button();
+            saveFileDialog1 = new SaveFileDialog();
+            openFileDialog1 = new OpenFileDialog();
+            portText = new TextBox();
             ( ( System.ComponentModel.ISupportInitialize )dataGridView1 ).BeginInit();
             SuspendLayout();
             // 
@@ -58,7 +63,7 @@
             dataGridView1.Location = new Point(31, 43);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(591, 365);
+            dataGridView1.Size = new Size(591, 306);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellContentClick +=  dataGridView1_CellContentClick ;
             // 
@@ -134,11 +139,50 @@
             refresh.UseVisualStyleBackColor = true;
             refresh.Click +=  refresh_Click ;
             // 
+            // Import
+            // 
+            Import.Font = new Font("맑은 고딕", 10.2F, FontStyle.Bold, GraphicsUnit.Point,   129);
+            Import.Location = new Point(660, 220);
+            Import.Name = "Import";
+            Import.Size = new Size(94, 29);
+            Import.TabIndex = 9;
+            Import.Text = "Import";
+            Import.UseVisualStyleBackColor = true;
+            Import.Click +=  Import_Click ;
+            // 
+            // Export
+            // 
+            Export.Font = new Font("맑은 고딕", 10.2F, FontStyle.Bold, GraphicsUnit.Point,   129);
+            Export.Location = new Point(660, 255);
+            Export.Name = "Export";
+            Export.Size = new Size(94, 29);
+            Export.TabIndex = 10;
+            Export.Text = "Export";
+            Export.UseVisualStyleBackColor = true;
+            Export.Click +=  Export_Click ;
+            // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // portText
+            // 
+            portText.Location = new Point(31, 363);
+            portText.Multiline = true;
+            portText.Name = "portText";
+            portText.ReadOnly = true;
+            portText.Size = new Size(591, 45);
+            portText.TabIndex = 11;
+            portText.TextChanged +=  portText_TextChanged ;
+            // 
             // Form3
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(portText);
+            Controls.Add(Export);
+            Controls.Add(Import);
             Controls.Add(refresh);
             Controls.Add(Add);
             Controls.Add(label3);
@@ -166,5 +210,10 @@
         private Label label3;
         private Button Add;
         private Button refresh;
+        private Button Import;
+        private Button Export;
+        private SaveFileDialog saveFileDialog1;
+        private OpenFileDialog openFileDialog1;
+        private TextBox portText;
     }
 }
